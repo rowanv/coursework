@@ -1,0 +1,27 @@
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+
+}
+.portfolio{
+	max-width: 700px;
+}
+.header_bar{
+	color:#747704;
+	display: -webkit-flex;
+	display: flex;
+	font-family: Arial;
+
+}
+.name{
+	float: right;
+}
+.image{
+
+}
+.featured_work{
+	color:#BCBBBB;
+
+}
