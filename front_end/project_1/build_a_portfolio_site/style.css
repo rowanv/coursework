@@ -14,7 +14,7 @@
 }
 
 .portfolio-container{
-	max-width: 700px;
+	max-width: 100%;
 }
 
 
@@ -112,22 +112,40 @@
 }
 
 .image{
+	max-width: 70%;
+	margin: auto;
 
 }
 .projects_bar{
 	overflow:auto;
 	display: -webkit-flex;
 	display: flex;
+	 /* tells browser okay for elements inside to wrap to next line */
 
 }
 
 a{
 	color:#BCBBBB;
 	text-decoration: none;
+	min-width: 48px;
+	min-height: 48px;
+	padding: 1.5em;
 }
 
 
 
 .center{
 	text-align:center;
+}
+
+@media screen and (max-width:700px){
+	.featured-work.col-4{
+		width:50%;
+	}
+}
+
+@media screen and (max-width:500px){
+	.featured-work.col-4 {
+		width:100%;
+	}
 }

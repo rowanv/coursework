@@ -1,0 +1,31 @@
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+
+}
+.title{
+	color: white;
+	background-color: #33BEBE;
+	font-family: Arial;
+}
+.app{
+	display: -webkit-flex;
+	display: flex;
+}
+.image{
+	max-width: 460px;
+}
+
+.description {
+	color: #7C8B88;
+	max-width: 705px;
+	margin: 25px;
+}
+
+.project {
+	display: -webkit-flex;
+	display: flex;
+}
