@@ -6,7 +6,7 @@
 	<link rel='stylesheet' href='//normalize-css.googlecode.com/svn/trunk/normalize/css'>
 	<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
 	<meta name='viewport' content='width=device-width,initial-scale=1'>
-	<meta charset='UTF-8'>
+	<meta charset='utf-8'>
 	 <!--ensures that style sheet works same across all browsers-->
 </head>
 <body>
@@ -24,7 +24,15 @@
 
 		<hr>
 
-		<div class='image'><img src='http://placekitten.com/700/350' alt='code'></div>
+		<nav class='nav'>
+			<ul class='nav_list'>
+				<li class='nav_item'><a href='#'>Home</a></li>
+				<li class='nav_item'><a href='#'>About</a></li>
+				<li class='nav_item'><a href='#'>Contact</a></li>
+			</ul>
+		</nav>
+		<div class='image cat'><img src='images/placekitten.jpg' data-src-350px='images/placekitten_60q_50pc.jpg' alt='kitten'></div>
+		<!--div class='image cat'><img src='images/low_placekitten.webp' srcset='images/low_placekitten.webp 700w, images/placekitten_60q_50pc.jpg 350w' alt='kitten'></div>-->
 		<div class='row'>
 			<h2>Featured Work</h2>
 			<div class='row'>
@@ -45,6 +53,7 @@
 				</div>
 			</div>
 		</div>
+		<footer class='footer'> Rowan Vasquez - Udacity Front-End Nanodegree - 2015 </footer>
 	</div>
 
 </body>

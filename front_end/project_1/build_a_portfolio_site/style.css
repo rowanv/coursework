@@ -13,11 +13,12 @@
 	font-family: 'Lato', sans-serif;
 }
 
-.portfolio-container{
+.portfolio-container {
 	max-width: 100%;
 }
 
 
+/* Flex Box Grid Based Layout */
 
 .row {
     width: 100%;
@@ -74,18 +75,48 @@
     width: 100%;
 }
 
+/* Nav Bar */
 
-.col-6.header_bar{
+.nav {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.nav_list {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.nav_item {
+	box-sizing: border-box;
+	display: inline-block;
+	width: 32%;
+	min-width: 48px;
+	min-height: 48px;
+	text-align: center;
+	line-height: 24px;
+	padding: 24px;
+	text-transform: uppercase;
+}
+
+
+/* Content */
+
+.col-6.header_bar {
 
 	display: -webkit-flex;
 	display: flex;
-	width:  100%;
+	width: 100%;
 
 
 }
 
-.h1, .h3, .h4{
-	color:#747704;
+.h1,
+.h3,
+.h4 {
+	color: #747704;
 
 }
 
@@ -93,39 +124,41 @@
 	font-size: 3em;
 }
 
-.h2{
-	color: #BCBBBB;
+.h2 {
+	color: #bcbbbb;
 	margin: 10px;
 	font-size: 2em;
 
 }
-.h3{
-	font-size:3em;
+
+.h3 {
+	font-size: 3em;
 }
 
-.link-repo{
+.link-repo {
 	font-size: .9em;
 }
 
-.subtitle-container{
-	text-align:right;
+.footer {
+	font-size: .7em;
+	text-align: center;
+	color: #bcbbbb;
 }
 
-.image{
-	max-width: 70%;
-	margin: auto;
-
+.subtitle-container {
+	text-align: right;
 }
-.projects_bar{
-	overflow:auto;
-	display: -webkit-flex;
-	display: flex;
-	 /* tells browser okay for elements inside to wrap to next line */
+
+.image {
+	max-width: 700px;
+	margin-left: auto;
+	margin-right: auto;
 
 }
 
-a{
-	color:#BCBBBB;
+
+a {
+	color: #bcbbbb;
 	text-decoration: none;
 	min-width: 48px;
 	min-height: 48px;
@@ -134,18 +167,30 @@ a{
 
 
 
-.center{
-	text-align:center;
+.center {
+	text-align: center;
 }
 
-@media screen and (max-width:700px){
-	.featured-work.col-4{
-		width:50%;
-	}
-}
 
-@media screen and (max-width:500px){
+/* Media Queries */
+
+
+@media screen and (max-width: 700px) {
 	.featured-work.col-4 {
-		width:100%;
+		width: 50%;
+	}
+
+}
+
+@media screen and (max-width: 500px) {
+	.featured-work.col-4 {
+		width: 100%;
+	}
+
+	.nav_item {
+		width: 100%;
+	}
+	img[data-src-350px] {
+		content: attr(data-src-350px, url);
 	}
 }
