@@ -13,9 +13,6 @@
 	font-family: 'Lato', sans-serif;
 }
 
-.portfolio-container {
-	max-width: 100%;
-}
 
 
 /* Flex Box Grid Based Layout */
@@ -139,6 +136,14 @@
 	font-size: .9em;
 }
 
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 100%;
+}
+
 .footer {
 	font-size: .7em;
 	text-align: center;
@@ -170,6 +175,21 @@ a {
 .center {
 	text-align: center;
 }
+
+/* Responsive Image Rules
+From Twitter's Bootstrap Framework */
+
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+
 
 
 /* Media Queries */
