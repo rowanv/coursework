@@ -16,41 +16,8 @@ var bio = {
     "display" : "some function"
 };
 
-bio.display = function() {
-    'use strict';
-    var formattedName = HTMLheaderName.replace('%data%', bio.name),
-        formattedRole = HTMLheaderRole.replace('%data%', bio.role);
-
-    $('#header').prepend(formattedName);
-    $('#header').append(formattedRole);
-
-    var formattedBioPic = HTMLbioPic.replace("%data%", bio.biopic);
-    $('#topContacts').prepend(formattedBioPic);
-    console.log(formattedBioPic);
 
 
-    var formattedMobile = HTMLmobile.replace("%data%", bio.contacts.mobile);
-    var formattedEmail = HTMLemail.replace('%data%', bio.contacts.email);
-    var formattedTwitter = HTMLtwitter.replace('%data%', bio.contacts.twitter);
-    var formattedGithub = HTMLgithub.replace('%data%', bio.contacts.github);
-    $("#topContacts").append(formattedMobile);
-    $('#topContacts').append(formattedEmail);
-    $('#topContacts').append(formattedTwitter);
-    $('#topContacts').append(formattedGithub);
-
-    $('#header').append(HTMLskillsStart);
-
-    var formattedWelcomeMessage = HTMLwelcomeMsg.replace('%data%', bio.welcomeMessage);
-    $('#header').append(formattedWelcomeMessage);
-
-
-};
-
-
-for (skilli in bio['skills']){
-    var formattedSkill = HTMLskills.replace("%data%", bio.skills[skilli]);
-    $('#header:last').append(formattedSkill);
-};
 
 
 
@@ -131,10 +98,54 @@ var projects = {'projects' : [{
 };
 
 
+bio.display = function() {
+    'use strict';
+    var formattedName = HTMLheaderName.replace('%data%', bio.name),
+        formattedRole = HTMLheaderRole.replace('%data%', bio.role);
+    $('#header').prepend(formattedRole);
+    $('#header').prepend(formattedName);
+
+
+    var formattedBioPic = HTMLbioPic.replace("%data%", bio.biopic);
+    $('#header').append(formattedBioPic);
+    console.log(formattedBioPic);
+
+
+    var formattedMobile = HTMLmobile.replace("%data%", bio.contacts.mobile);
+    var formattedEmail = HTMLemail.replace('%data%', bio.contacts.email);
+    var formattedTwitter = HTMLtwitter.replace('%data%', bio.contacts.twitter);
+    var formattedGithub = HTMLgithub.replace('%data%', bio.contacts.github);
+
+    $("#topContacts").append(formattedMobile);
+    $('#topContacts').append(formattedEmail);
+    $('#topContacts').append(formattedTwitter);
+    $('#topContacts').append(formattedGithub);
+
+
+
+    var formattedWelcomeMessage = HTMLwelcomeMsg.replace('%data%', bio.welcomeMessage);
+    $('#topContacts:last').append(formattedWelcomeMessage);
+
+    $('#topContacts:last').append(HTMLskillsStart);
+    //console.log(bio.skills[0]);
+
+
+
+};
+
+for (i in bio.skills) {
+
+    var formattedSkill = HTMLskills.replace("%data%", bio.skills[i]);
+    console.log(formattedSkill);
+    //$('#topContacts:last').append(formattedSkill);
+};
+
+
 /*Work */
 
-$("#workExperience").append(HTMLworkStart);
+
 for (job in work.jobs){
+    $("#workExperience").append(HTMLworkStart);
     //$("#workExperience").append(HTMLworkStart);
     var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
     var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
@@ -152,30 +163,33 @@ for (job in work.jobs){
 /* Projects */
 
 $('#projects').append(HTMLprojectStart);
-for (project_iter in projects.projects){
-    var formattedProjectTitle = HTMLprojectTitle.replace("%data%", projects.projects[project_iter].title);
-    var formattedProjectDates = HTMLprojectDates.replace('%data', projects.projects[project_iter].title);
-    var formattedProjectDates = HTMLprojectDates.replace('%data%', projects.projects[project_iter].dates);
-    var formattedProjectDescription = HTMLprojectDescription.replace('%data%', projects.projects[project_iter].description);
 
-    $('#projects:last').append(formattedProjectTitle);
-    $('#projects:last').append(formattedProjectDates);
-    $('#projects:last').append(formattedProjectDescription);
+
+
+//projects.display = function() {
+    //'use strict';
+    for (project_iter in projects.projects){
+        //$('#project-entry:first').prepend(HTMLprojectStart);
+        var formattedProjectTitle = HTMLprojectTitle.replace("%data%", projects.projects[project_iter].title);
+        var formattedProjectDates = HTMLprojectDates.replace('%data', projects.projects[project_iter].title);
+        var formattedProjectDates = HTMLprojectDates.replace('%data%', projects.projects[project_iter].dates);
+        var formattedProjectDescription = HTMLprojectDescription.replace('%data%', projects.projects[project_iter].description);
+
+        $('#project-entry:last').append(formattedProjectTitle);
+        $('#project-entry:last').append(formattedProjectDates);
+        $('#project-entry:last').append(formattedProjectDescription);
 };
 
-
-
-work.display = function() {
-    'use strict';
 
     /*var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs.employer);
     var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs.title);
     $("#workExperience").append(HTMLworkStart);*/
 
-};
+//};
 
-$('#education').append(HTMLschoolStart);
+
 for (school in education.schools){
+    $('#education').append(HTMLschoolStart);
     var formattedSchoolName = HTMLschoolName.replace('%data%', education.schools[school].name);
     var formattedSchoolDegree = HTMLschoolDegree.replace('%data%', education.schools[school].degree);
     var formattedSchoolDates = HTMLschoolDates.replace('%data%', education.schools[school].dates);
@@ -186,8 +200,9 @@ for (school in education.schools){
     $('#education:last').append(formattedSchoolMajor);
 };
 
-$('#education:last').append(HTMLonlineClasses);
+
 for (course in education.onlineCourses){
+    $('#education:last').append(HTMLonlineClasses);
     var formattedTitle = HTMLonlineTitle.replace('%data%', education.onlineCourses[course].title);
     var formattedSchool = HTMLonlineSchool.replace('%data%', education.onlineCourses[course].school);
     var formattedDates = HTMLonlineDates.replace('%data%', education.onlineCourses[course].dates);
@@ -200,8 +215,8 @@ for (course in education.onlineCourses){
 }
 
 bio.display();
-work.display();
-
+//work.display();
+//projects.display();
 
 
 
