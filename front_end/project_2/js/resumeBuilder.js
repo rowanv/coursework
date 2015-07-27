@@ -166,10 +166,6 @@ projects.display = function() {
         var formattedProjectDates = HTMLprojectDates.replace('%data%', projects.projects[projectIter].dates);
         var formattedProjectDescription = HTMLprojectDescription.replace('%data%', projects.projects[projectIter].description);
 
-        console.log(formattedProjectTitle);
-        console.log(formattedProjectDates);
-        console.log(formattedProjectDescription);
-
         $('#projects:last').append(formattedProjectTitle);
         $('#projects:last').append(formattedProjectDates);
         $('#projects:last').append(formattedProjectDescription);
@@ -184,11 +180,13 @@ education.display = function() {
         var formattedSchoolName = HTMLschoolName.replace('%data%', education.schools[school].name);
         var formattedSchoolDegree = HTMLschoolDegree.replace('%data%', education.schools[school].degree);
         var formattedSchoolDates = HTMLschoolDates.replace('%data%', education.schools[school].dates);
-        var formattedSchoolMajor = HTMLschoolMajor.replace('%data%', education.schools[school].major)
+        var formattedSchoolMajor = HTMLschoolMajor.replace('%data%', education.schools[school].major);
+        var formattedSchoolLocation =  HTMLschoolLocation.replace('%data%', education.schools[school].location);
         $('#education:last').append(formattedSchoolName);
         $('#education:last').append(formattedSchoolDegree);
         $('#education:last').append(formattedSchoolDates);
         $('#education:last').append(formattedSchoolMajor);
+        $('#education:last').append(formattedSchoolLocation);
     }
 
 
