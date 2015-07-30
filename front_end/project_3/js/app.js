@@ -1,10 +1,15 @@
+
+PLAYER_START_X = 200
+PLAYER_START_Y = 420
+
+
 // Enemies our player must avoid
-var Enemy = function(x, y, speed) {
+var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.x = x;
     this.y = y;
-    this.speed = speed;
+    this.speed = 20;
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -17,6 +22,8 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x = this.x + (this.speed * dt)
+
 
 }
 
@@ -32,32 +39,65 @@ Enemy.prototype.render = function() {
 var Player = function(x, y, speed) {
     this.x = x;
     this.y = y;
-    this.speed = speed;
     this.boy= 'images/char-boy.png';
 }
 
 Player.prototype.update = function(dt) {
+    //this.x = this.x + (this.speed * dt);
 
 }
 
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.boy), this.x, this.y)
+    ctx.drawImage(Resources.get(this.boy), this.x, this.y);
 }
 
-Player.handleInput = function(e) {
-    if (e === 37) {
-        this.x = 50
+Player.prototype.handleInput = function(e) {
+    console.log(e);
+    console.log(this.x);
+    console.log(this.y);
+    switch(e){
+    case 'right':
+        if ((this.x + 100) > 400){
+            console.log('Invalid key - would send player off canvas');
+        }
+        else {
+        this.x += 100;
+        }
+        break;
+    case 'left':
+        if ((this.x - 100) < 0) {
+            console.log('Invalid key - would send player off canvas');
+        }
+        else {
+        this.x -= 100;
+        }
+        break;
+    case 'up':
+        if ((this.y - 100) < -100) {
+            console.log('Invalid key - would send player off canvas');
+        }
+        else {
+            this.y -= 100;
+        }
+        break;
+    case 'down':
+        if ((this.y + 100) > 500){
+            console.log('Invalid key - would send player off canvas');
+        }
+        else {
+            this.y += 100;
+        }
+        break;
     }
-
 }
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var firstEnemy = new Enemy(50, 100, 100);
-var secondEnemy = new Enemy(100, 50, 100);
+var firstEnemy = new Enemy(50, 100);
+var secondEnemy = new Enemy(100, 50);
 var allEnemies =  [firstEnemy, secondEnemy];
-var player = new Player(200, 420, 100);
+var player = new Player(PLAYER_START_X, PLAYER_START_Y);
 var score = 0;
 
 
