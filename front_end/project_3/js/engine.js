@@ -94,7 +94,11 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
+        allCollectibles.forEach(function(collectible) {
+            collectible.update(dt);
+        });
         player.update();
+
     }
 
     /* This function initially draws the "game level", it will then call
@@ -151,7 +155,13 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-
+        allCollectibles.forEach(function(collectible) {
+            collectible.render();
+        });
+        checkForCollisions();
+        clearText();
+        loseTest();
+        checkIfOnWater();
         player.render();
     }
 
@@ -160,7 +170,8 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        startGame();
+        //ctx.fillText('Welcome!', canvas.width/2, 40);
     }
 
     /* Go ahead and load all of the images we know we're going to need to
@@ -172,7 +183,15 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Gem Orange.png',
+        'images/Gem Green.png',
+        'images/Gem Blue.png',
+        'images/Heart.png',
+        'images/Key.png',
+        'images/Rock.png',
+        'images/Selector.png',
+        'images/Star.png'
     ]);
     Resources.onReady(init);
 
