@@ -163,6 +163,8 @@ var Engine = (function(global) {
         loseTest();
         checkIfOnWater();
         player.render();
+        renderLives();
+        itemsAppear();
     }
 
     /* This function does nothing but it could have been a good place to
