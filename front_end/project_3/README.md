@@ -1,6 +1,10 @@
 frontend-nanodegree-arcade-game
 ===============================
 
+How to run the application:
+Open the index.html file in a browser.
+
+
 How to play the game:
 
 

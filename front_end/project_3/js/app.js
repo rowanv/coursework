@@ -33,6 +33,7 @@ var Enemy = function(x, y) {
 // Update the enemy's position,
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
+    'use strict';
     // multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -41,6 +42,7 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen
 Enemy.prototype.render = function() {
+    'use strict';
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -49,7 +51,7 @@ Enemy.prototype.render = function() {
 /* Items */
 
 
-var Collectible = function(type, x, y){
+var Collectible = function(type, x, y) {
     'use strict';
     this.x = x;
     this.y = y;
@@ -57,21 +59,19 @@ var Collectible = function(type, x, y){
     this.width = 100;
     this.height = 100;
 
-    if (this.type == 'star'){
+    if (this.type === 'star') {
         this.image = 'images/Star.png';
         this.width = 101;
         this.height = 101;
     }
-    else if (this.type == 'orange_gem'){
+    else if (this.type === 'orange_gem') {
         this.image = 'images/Gem Orange.png';
         this.width = 90;
         this.height = 101;
     }
 };
 
-Collectible.prototype.update = function(dt){
-    this.x = this.x;
-};
+
 
 Collectible.prototype.render = function(){
     ctx.drawImage(Resources.get(this.image), this.x, this.y);
@@ -97,7 +97,6 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(e) {
-    console.log(e);
     console.log('X position:' + this.x + ' Y position:' + this.y);
     console.log('Life Counter' + life_counter);
     collideTest();
@@ -146,8 +145,23 @@ Player.prototype.handleInput = function(e) {
     }
 };
 
+Player.prototype.checkIfOnWater = function() {
+    'use strict';
+    if (player.y <= 100 && gem_counter >= 3){
+        console.log('You win!');
+        player.win_state = 'win';
+        ctx.fillText('You win!', 400/2, 40);
+        startGame();
+    }
+    else if (player.y <= 100 && gem_counter < 3){
+        console.log('Insufficient gems - you cannot win the game until you have 3 gems AND have reached the water');
+        ctx.fillText('Get more gems', 400/2, 40);
+    }
+};
 
-function collideTest(a_item, b_item){
+
+
+var collideTest = function(a_item, b_item){
     'use strict';
     if (a_item != undefined && b_item != undefined) {
         return a_item.x < b_item.x + b_item.width &&
@@ -157,7 +171,7 @@ function collideTest(a_item, b_item){
     }
 }
 
-function checkForCollisions() {
+var checkForCollisions = function() {
     'use strict';
     allEnemies.forEach(function(enemy) {
             if (collideTest(enemy, player)){
@@ -186,21 +200,8 @@ function checkForCollisions() {
     });
 }
 
-function checkIfOnWater() {
-    'use strict';
-    if (player.y <= 100 && gem_counter >= 3){
-        console.log('You win!');
-        player.win_state = 'win';
-        ctx.fillText('You win!', 400/2, 40);
-        startGame();
-    }
-    else if (player.y <= 100 && gem_counter < 3){
-        console.log('Insufficient gems');
-        ctx.fillText('Get more gems', 400/2, 40);
-    }
-}
 
-function loseTest(){
+var loseTest = function(){
     'use strict';
     if (life_counter <= 0){
         ctx.fillText('Try again!', 200, 40);
@@ -208,20 +209,20 @@ function loseTest(){
     }
 }
 
-function clearText(){
+var clearText = function(){
     'use strict';
     if (player.y <= 320){
         ctx.clearRect(200, 0, 200, 50);
     }
 }
 
-function renderLives(){
+var renderLives = function(){
     'use strict';
     ctx.fillText(life_counter, 70, 40);
 }
 
 
-function itemsAppear(){
+var itemsAppear = function(){
     'use strict';
     var randInt = Math.floor(Math.random() * 1000000 + 1);
     if (randInt % 10000 == 0){
@@ -232,13 +233,13 @@ function itemsAppear(){
     }
 }
 
-function clearScoreCanvas(){
+var clearScoreCanvas = function(){
     'use strict';
     ctx.clearRect(0, 0, 100, 50);
     ctx.fillText('Lives:', 0, 40);
 }
 
-function randomCoordinate(){
+var randomCoordinate = function(){
     'use strict';
     var randCoord = Math.floor(Math.random() * 4 + 1);
     console.log(randCoord * 101);
@@ -247,7 +248,7 @@ function randomCoordinate(){
 }
 
 
-function wrapEnemiesScreen(allEnemies){
+var wrapEnemiesScreen = function(allEnemies){
     'use strict';
     /* Sends enemies back to the left side of the screen when
     they have gone off the right side */
@@ -266,7 +267,7 @@ function wrapEnemiesScreen(allEnemies){
     return [firstEnemy, secondEnemy, thirdEnemy];
 }
 
-function startGame(){
+var startGame = function(){
     'use strict';
     firstEnemy = new Enemy(0, 60);
     secondEnemy = new Enemy(20, 145);
