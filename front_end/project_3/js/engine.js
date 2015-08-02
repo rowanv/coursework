@@ -158,6 +158,9 @@ var Engine = (function(global) {
         allCollectibles.forEach(function(collectible) {
             collectible.render();
         });
+        allGems.forEach(function(gem){
+            gem.render();
+        })
         checkForCollisions();
         clearText();
         loseTest();
@@ -165,6 +168,8 @@ var Engine = (function(global) {
         player.render();
         renderLives();
         itemsAppear();
+        allEnemies = wrapEnemiesScreen(allEnemies);
+
     }
 
     /* This function does nothing but it could have been a good place to
