@@ -2,7 +2,7 @@
 
 
 var PLAYER_START_X = 200;
-var PLAYER_START_Y = 420;
+var PLAYER_START_Y = 400;
 var LADYBUG_SPEED = 80;
 
 
@@ -84,8 +84,8 @@ var Player = function(x, y, speed) {
     this.y = y;
     this.boy = 'images/char-boy.png';
     this.win_state = 'not win';
-    this.width = 100;
-    this.height = 100;
+    this.width = 63;
+    this.height = 63;
 };
 
 Player.prototype.update = function(dt) {
@@ -123,23 +123,23 @@ Player.prototype.handleInput = function(e) {
             console.log('Invalid key - would send player off canvas');
         }
         //Win the game if make it to last row
-        else if (this.y  <= 20){
+        else if (this.y  <= 70){
             console.log('You win!');
             player.win_state = 'win';
-            this.y -=100;
+            this.y -=82;
             }
         else {
-            this.y -= 100;
+            this.y -= 82;
         }
         break;
     case 'down':
         //Avoid moving player off of canvas
-        if ((this.y + 100) > 500){
+        if (this.y  >= 400){
             console.log('Invalid key - would send player off canvas');
         }
 
         else {
-            this.y += 100;
+            this.y += 82;
         }
         break;
     }
@@ -147,13 +147,14 @@ Player.prototype.handleInput = function(e) {
 
 Player.prototype.checkIfOnWater = function() {
     'use strict';
-    if (player.y <= 100 && gem_counter >= 3){
+    if (player.y <= 70 && gem_counter >= 3){
         console.log('You win!');
         player.win_state = 'win';
         ctx.fillText('You win!', 400/2, 40);
+        gem_counter = 0;
         startGame();
     }
-    else if (player.y <= 100 && gem_counter < 3){
+    else if (player.y <= 70 && gem_counter < 3){
         console.log('Insufficient gems - you cannot win the game until you have 3 gems AND have reached the water');
         ctx.fillText('Get more gems', 400/2, 40);
     }
@@ -269,7 +270,7 @@ var wrapEnemiesScreen = function(allEnemies){
 
 var startGame = function(){
     'use strict';
-    firstEnemy = new Enemy(0, 60);
+    firstEnemy = new Enemy(0, 66);
     secondEnemy = new Enemy(20, 145);
     thirdEnemy = new Enemy(150, 225);
     someGem = new Collectible('orange_gem', randomCoordinate(), randomCoordinate());
