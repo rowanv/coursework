@@ -74,11 +74,12 @@ var Collectible = function(type, x, y) {
 
 
 Collectible.prototype.render = function(){
+    'use strict';
     ctx.drawImage(Resources.get(this.image), this.x, this.y);
 };
 
 
-var Player = function(x, y, speed) {
+var Player = function(x, y) {
     'use strict';
     this.x = x;
     this.y = y;
@@ -88,7 +89,7 @@ var Player = function(x, y, speed) {
     this.height = 63;
 };
 
-Player.prototype.update = function(dt) {
+Player.prototype.update = function() {
     //this.x = this.x + (this.speed * dt);
 };
 
@@ -101,13 +102,13 @@ Player.prototype.handleInput = function(e) {
     console.log('Life Counter' + life_counter);
     collideTest();
 
-    switch(e){
+    switch(e) {
     case 'right':
-        if ((this.x + 100) > 400){
+        if ((this.x + 100) > 400) {
             console.log('Invalid key - would send player off canvas');
         }
         else {
-        this.x += 100;
+            this.x += 100;
         }
         break;
     case 'left':
@@ -115,7 +116,7 @@ Player.prototype.handleInput = function(e) {
             console.log('Invalid key - would send player off canvas');
         }
         else {
-        this.x -= 100;
+            this.x -= 100;
         }
         break;
     case 'up':
@@ -126,21 +127,21 @@ Player.prototype.handleInput = function(e) {
         else if (this.y  <= 70){
             console.log('You win!');
             player.win_state = 'win';
-            this.y -=82;
+            this.y -= 82;
             }
         else {
             this.y -= 82;
-        }
+            }
         break;
     case 'down':
         //Avoid moving player off of canvas
         if (this.y  >= 400){
             console.log('Invalid key - would send player off canvas');
-        }
+            }
 
         else {
             this.y += 82;
-        }
+            }
         break;
     }
 };
@@ -150,7 +151,7 @@ Player.prototype.checkIfOnWater = function() {
     if (player.y <= 70 && gem_counter >= 3){
         console.log('You win!');
         player.win_state = 'win';
-        ctx.fillText('You win!', 400/2, 40);
+        ctx.fillText('You win!', 200, 40);
         gem_counter = 0;
         startGame();
     }
@@ -161,16 +162,15 @@ Player.prototype.checkIfOnWater = function() {
 };
 
 
-
 var collideTest = function(a_item, b_item){
     'use strict';
-    if (a_item != undefined && b_item != undefined) {
+    if (a_item !== undefined && b_item !== undefined) {
         return a_item.x < b_item.x + b_item.width &&
-        a_item.x + a_item.width > b_item.x &&
-        a_item.y < b_item.y + b_item.height &&
-        a_item.y + a_item.height > b_item.y;
+            a_item.x + a_item.width > b_item.x &&
+            a_item.y < b_item.y + b_item.height &&
+            a_item.y + a_item.height > b_item.y;
     }
-}
+};
 
 var checkForCollisions = function() {
     'use strict';
@@ -199,7 +199,7 @@ var checkForCollisions = function() {
             allGems.push(someGem);
         }
     });
-}
+};
 
 
 var loseTest = function(){
@@ -208,45 +208,44 @@ var loseTest = function(){
         ctx.fillText('Try again!', 200, 40);
         startGame();
     }
-}
+};
 
 var clearText = function(){
     'use strict';
     if (player.y <= 320){
         ctx.clearRect(200, 0, 200, 50);
     }
-}
+};
 
 var renderLives = function(){
     'use strict';
     ctx.fillText(life_counter, 70, 40);
-}
+};
 
 
 var itemsAppear = function(){
     'use strict';
     var randInt = Math.floor(Math.random() * 1000000 + 1);
-    if (randInt % 10000 == 0){
+    if (randInt % 10000 === 0){
         console.log(randInt);
         console.log('Divisible by 10');
         someStar = new Collectible('star', randomCoordinate(), randomCoordinate());
         allCollectibles.push(someStar);
     }
-}
+};
 
 var clearScoreCanvas = function(){
     'use strict';
     ctx.clearRect(0, 0, 100, 50);
     ctx.fillText('Lives:', 0, 40);
-}
+};
 
 var randomCoordinate = function(){
     'use strict';
     var randCoord = Math.floor(Math.random() * 4 + 1);
     console.log(randCoord * 101);
     return randCoord * 101;
-
-}
+};
 
 
 var wrapEnemiesScreen = function(allEnemies){
@@ -266,7 +265,7 @@ var wrapEnemiesScreen = function(allEnemies){
         thirdEnemy = new Enemy(-100, 225);
     }
     return [firstEnemy, secondEnemy, thirdEnemy];
-}
+};
 
 var startGame = function(){
     'use strict';
@@ -283,12 +282,7 @@ var startGame = function(){
     ctx.font = 'bold 20pt Calibri';
     ctx.fillStyle = 'black';
     clearScoreCanvas(); //clears the score area
-
-
-
-}
-
-
+};
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method.
