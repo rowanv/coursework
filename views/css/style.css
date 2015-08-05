@@ -38,12 +38,16 @@ form {
 .randomPizzaContainer {
   float: left;
   display: flex;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .randomPizzaContainer:after {
   content: "";
   display: table;
   clear:both;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
  .container {
