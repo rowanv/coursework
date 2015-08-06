@@ -545,13 +545,13 @@ document.addEventListener('DOMContentLoaded', function() {
   var width = window.screen.width;
   var height = window.screen.height;
   var s = 256;
-  var cols = width / s;
+  var cols = 8;
   var rows = height / s;
   var allPizzas = Math.ceil(cols * rows);
   //changed API call to improve performance
   var movingPizzas = document.getElementById('movingPizzas1');
   var elem;
-  for (var i = 0; i < 200; i++) {
+  for (var i = 0; i < allPizzas; i++) {
     elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
