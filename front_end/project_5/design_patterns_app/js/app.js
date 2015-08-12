@@ -1,6 +1,6 @@
 'use strict';
 
-
+//
 function catClick(Cat, element_id_to_be_replaced){
     var cat_click_p = document.getElementById(element_id_to_be_replaced);
     Cat.click_count += 1;
@@ -24,6 +24,7 @@ function buttonClick(allCats, element_id_to_be_replaced){
 }
 
 $(function(){
+	//TODO: put allCats in 
 	var allCats = [];
 	var model = {
 		init: function() {
@@ -36,7 +37,7 @@ $(function(){
 				return false;
 				}
 			/* Populate allCats with the cats that will be shown on the page */
-			
+		
 
 			var sleepyCat = new CatCount('http://www.jigzone.com/p/jz/jzC/CatNap.jpg', 'Sleepy Cat', 'cat_button_0');
 			allCats.push(sleepyCat);
@@ -141,6 +142,7 @@ $(function(){
 				catPic.addEventListener('click', catClick, false);
 
 				var click_count_string = cat.cat_button_string
+
 				$('.cat').append($('<div>', {text: 'This cat has been clicked'}));
 				$('.cat').append($('<p>', {text: 0, id: click_count_string}));
 				$('.cat').append($('<div>', {text: 'times. '}));
