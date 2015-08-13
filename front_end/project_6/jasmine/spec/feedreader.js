@@ -15,6 +15,7 @@ $(function() {
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
+            expect(allFeeds instanceof Array).toBeTruthy();
         });
 
 
@@ -25,6 +26,7 @@ $(function() {
             for (var i = 0; i < allFeeds.length; i++) {
                 expect(allFeeds[i].url).toBeDefined();
                 expect(allFeeds[i].url).not.toBe("");
+                expect(allFeeds[i].url).toMatch(/^http(s?)\:\/\//);
             }
 
          })
