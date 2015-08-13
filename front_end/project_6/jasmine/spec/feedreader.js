@@ -56,15 +56,15 @@ $(function() {
           * Has two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
-          it('changes visibility when the menu icon is clicked', function(){
-            var menuIcon = $('.menu-icon-link');
-            menuIcon.trigger('click');
+        it('changes visibility when the menu icon is clicked', function(){
+          var menuIcon = $('.menu-icon-link');
+          menuIcon.trigger('click');
 
-            expect($('.menu-hidden')).toBeFalsy;
-            menuIcon.trigger('click');
-            expect($('.menu-hidden')).toBeTruthy();
+          expect($('.menu-hidden')).toBeFalsy;
+          menuIcon.trigger('click');
+          expect($('.menu-hidden')).toBeTruthy();
 
-          })
+        })
     });
 
 
@@ -72,45 +72,48 @@ $(function() {
     /*"Initial Entries" test suite */
 
     describe('Initial Entries', function() {
+      var initialEntries;
 
-        var load = new loadFeed;
-
-        beforeEach(function(done) {
-            load.feed.load(function() {
-                done();
-            });
-        });
+      beforeEach(function(done) {
+            loadFeed(0, (function() {
+                initialEntries = $('.feed').html();
+            }));
+            done();
+          });
         /* Ensures when the loadFeed function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          */
          it('when the loadfeed function is called and completes its work, there is at least a single .entry element within the .feed container', function() {
-                expect(load.feed.load.entry).toBeTruthy;
-                done();
+                expect(initialEntries).not.toBe(null);
             });
+
+         });
 
     /* Test suite named "New Feed Selection" */
 
     describe('New Feed Selection', function() {
-        var newFeed = new loadFeed();
+        var initialEntries;
 
         beforeEach(function(done) {
-            newFeed.feed.load(function(){
+          loadFeed(1, (function() {
+            initialEntries = $('.feed').html();
+          }));
                 done();
-            });
-        });
+          });
 
         /* When a new feed is loaded by the loadFeed function the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
 
-        it('when a new feed is loaded the content actually changes', function() {
-            expect(loadFeed.feed).toBeTruthy;
-        })
-    })
+        it('when a new feed is loaded the content actually changes', function(done) {
+
+            loadFeed(2, done);
+            expect($('.feed').html()).not.toEqual(initialEntries);
+        });
+
 
 
     });
-
 }());
 
 
