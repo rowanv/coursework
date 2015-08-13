@@ -1,15 +1,21 @@
 // This is a simple *viewmodel* - JavaScript that defines the data and behavior of your UI
 
-
+var data = {
+	'Locations' : {
+		'arrLocations': ['park', 'gym']
+	}
+};
 
 
 function AppViewModel() {
     this.location = ko.observable("Barcelona, Spain");
-    this.gymBox = ko.observable(true);
+    this.Locations = ko.observableArray(data.Locations.arrLocations);
+    /*this.gymBox = ko.observable(true);
     this.parkBox = ko.observable(true);
     this.storeBox = ko.observable(true);
     this.museumBox = ko.observable(true);
-    this.zooBox = ko.observable(true);
+    this.zooBox = ko.observable(true);*/
+
 
 
 
@@ -62,3 +68,4 @@ function createMarker(place) {
 
 // Activates knockout.js
 ko.applyBindings(new AppViewModel());
+
