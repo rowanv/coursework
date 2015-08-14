@@ -6,7 +6,8 @@ var data = {
 	}
 };
 
-var locationList = ['barcelona', 'madrid']
+var locationList = [];
+var imageList = [];
 
 function AppViewModel() {
     this.location = ko.observable("Barcelona, Spain");
@@ -50,6 +51,8 @@ function callback(results, status) {
     for (var i = 0; i < results.length; i++) {
       createMarker(results[i]);
       console.log(results[i]);
+      locationList.push(results[i].name);
+      imageList.push(results[i].icon);
     }
   }
 }
@@ -86,8 +89,10 @@ $.ajax({
 
     for (var i = 0; i < locationList.length; i++) {
       locationStr = locationList[i];
+      imageIcon = imageList[i];
       var url = 'http://en.wikipedia.org/wiki/' + locationStr;
       $wikiElem.append('<li><a href="' + url + '">' + locationStr + '</a></li');
+      $wikiElem.append('<img src="' + imageIcon + '" alt="' + locationStr + '">')
     };
   }
 });
