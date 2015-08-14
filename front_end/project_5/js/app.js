@@ -6,6 +6,7 @@ var data = {
 	}
 };
 
+var locationList = ['barcelona', 'madrid']
 
 function AppViewModel() {
     this.location = ko.observable("Barcelona, Spain");
@@ -48,6 +49,7 @@ function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       createMarker(results[i]);
+      console.log(results[i]);
     }
   }
 }
@@ -68,4 +70,25 @@ function createMarker(place) {
 
 // Activates knockout.js
 ko.applyBindings(new AppViewModel());
+var $wikiElem = $('#wikipedia-links');
+
+$wikiElem.text('');
+
+var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + 'barcelona' + '&format=json&callback=wikiCallback';
+
+
+
+$.ajax({
+  url: wikiUrl,
+  dataType: 'jsonp',
+  success: function( response ) {
+    var articleList = response[1];
+
+    for (var i = 0; i < locationList.length; i++) {
+      locationStr = locationList[i];
+      var url = 'http://en.wikipedia.org/wiki/' + locationStr;
+      $wikiElem.append('<li><a href="' + url + '">' + locationStr + '</a></li');
+    };
+  }
+});
 
