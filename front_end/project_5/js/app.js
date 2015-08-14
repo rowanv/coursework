@@ -15,6 +15,7 @@ var AppViewModel = {
     Locations : ko.observableArray(data.Locations.arrLocationTypes),
     placesList : ko.observableArray(data.Locations.arrLocationNames),
     imageList : ko.observableArray(data.LocationImageUrls),
+    radius: ko.observable(800),
 };
 
 
