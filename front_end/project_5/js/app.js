@@ -1,4 +1,4 @@
-// This is a simple *viewmodel* - JavaScript that defines the data and behavior of your UI
+/* Our data */
 
 var data = {
 	'Locations' : {
@@ -9,24 +9,27 @@ var data = {
 var locationList = [];
 var imageList = [];
 
+
+/* This represents a single tourist location */
+function LocationStore(name, icon) {
+    this.name = name;
+    this.icon = icon;
+}
+
+
+
 function AppViewModel() {
     this.location = ko.observable("Barcelona, Spain");
     this.Locations = ko.observableArray(data.Locations.arrLocations);
-    /*this.gymBox = ko.observable(true);
-    this.parkBox = ko.observable(true);
-    this.storeBox = ko.observable(true);
-    this.museumBox = ko.observable(true);
-    this.zooBox = ko.observable(true);*/
-
-
-
-
+    this.locationList = ko.observableArray([]);
 
 }
 
 
 var map;
 var infowindow;
+
+
 
 function initMap() {
   var barcelona = {lat: 41.383, lng: 2.183};
@@ -53,6 +56,7 @@ function callback(results, status) {
       console.log(results[i]);
       locationList.push(results[i].name);
       imageList.push(results[i].icon);
+
     }
   }
 }
