@@ -1,4 +1,4 @@
-'use strict';
+
 /* feedreader.js
  *
  * This is the spec file that Jasmine reads and contains
@@ -7,6 +7,7 @@
 
 
 $(function() {
+  'use strict';
     /* RSS Feeds Test suite
     */
     describe('RSS Feeds', function() {
@@ -29,7 +30,7 @@ $(function() {
                 expect(allFeeds[i].url).toMatch(/^http(s?)\:\/\//);
             }
 
-         })
+         });
 
 
         /* Loops through each feed in the allFeeds object and ensures
@@ -40,7 +41,7 @@ $(function() {
                 expect(allFeeds[i].name).toBeDefined();
                 expect(allFeeds[i].name).not.toBe("");
             }
-        })
+        });
     });
 
 
@@ -52,7 +53,7 @@ $(function() {
 
          it('is hidden by default', function(){
             expect($('.body').hasClass('hidden')).toBeFalsy();
-         })
+         });
 
          /* Ensures the menu changes visibility when the menu icon is clicked.
           * Has two expectations: does the menu display when
@@ -60,13 +61,14 @@ $(function() {
           */
         it('changes visibility when the menu icon is clicked', function(){
           var menuIcon = $('.menu-icon-link');
+
           menuIcon.trigger('click');
 
-          expect($('.menu-hidden')).toBeFalsy;
+          expect($('body').hasClass('menu-hidden')).toBe(false);
           menuIcon.trigger('click');
-          expect($('.menu-hidden')).toBeTruthy();
+          expect($('body').hasClass('menu-hidden')).toBe(true);
 
-        })
+        });
     });
 
 
@@ -77,30 +79,38 @@ $(function() {
       var initialEntries;
 
       beforeEach(function(done) {
-            loadFeed(0, (function() {
-                initialEntries = $('.feed').html();
-            }));
-            done();
+        loadFeed(0, function() {
+          initialEntries = $('.feed').html();
+
+          loadFeed(1, function() {
+            afterEntries = $('.feed').html();
+              done();
+            });
+            });
           });
         /* Ensures when the loadFeed function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          */
-         it('when the loadfeed function is called and completes its work, there is at least a single .entry element within the .feed container', function() {
-                expect(initialEntries).not.toBe(null);
-            });
+        it('when the loadfeed function is called and completes its work, there is at least a single .entry element within the .feed container', function() {
+            expect(initialEntries).not.toBe(null);
+        });
+      });
 
-         });
 
     /* Test suite named "New Feed Selection" */
 
     describe('New Feed Selection', function() {
         var initialEntries;
 
-        beforeEach(function(done) {
-          loadFeed(1, (function() {
+          beforeEach(function(done) {
+          loadFeed(0, function() {
             initialEntries = $('.feed').html();
-          }));
+
+              loadFeed(1, function() {
+                afterEntries = $('.feed').html();
                 done();
+              });
+            });
           });
 
         /* When a new feed is loaded by the loadFeed function the content actually changes.
@@ -110,12 +120,15 @@ $(function() {
         it('when a new feed is loaded the content actually changes', function(done) {
 
             loadFeed(2, done);
-            expect($('.feed').html()).not.toEqual(initialEntries);
+            expect(afterEntries).not.toEqual(initialEntries);
         });
 
 
 
     });
 }());
+
+
+
 
 
