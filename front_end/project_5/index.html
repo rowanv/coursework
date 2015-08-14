@@ -31,11 +31,7 @@
 		<p> <input type='checkbox' data-bind='checked: Locations' value='zoo'> Zoos </p>
 
 <!-- wikipedia articles for all selected map destinations -->
-		<p>Search: <input data-bind="value: location" /></p>
-		<div class='wikipedia-container'>
-			<h2 id='wikipedia-header'>Information on all locations</h2>
-			<ul id='wikipedia-links' 'text: name'></ul>
-		</div>
+
 
 
 	</div>
@@ -45,6 +41,11 @@
 		<p> Filter your desired travel destinations using the checkboxes. The pins will refresh in realtime. </p>
 	</div>
 	<div id='map'></div>
+			<p>Search: <input data-bind="value: location" /></p>
+		<div class='wikipedia-container'>
+			<h2 id='wikipedia-header'>Information on all locations</h2>
+			<ul id='wikipedia-links' 'text: name'></ul>
+		</div>
 
     <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initMap" async defer></script>
 
