@@ -9,24 +9,13 @@ var data = {
 
 };
 
-/*var locationList = [];
-var imageList = [];*/
-
-
-/* This represents a single tourist location */
-/*
-function LocationStore(name, icon) {
-    this.name = name;
-    this.icon = icon;
-}*/
-
-
 
 var AppViewModel = {
     location : ko.observable("Barcelona, Spain"),
     Locations : ko.observableArray(data.Locations.arrLocationTypes),
     placesList : ko.observableArray(data.Locations.arrLocationNames),
     imageList : ko.observableArray(data.LocationImageUrls),
+    radius: ko.observable(800),
 };
 
 
@@ -72,7 +61,7 @@ function callback(results, status) {
       createMarker(results[i]);
       console.log(results[i]);
       AppViewModel.placesList.push(results[i].name);
-      //imageList.push(results[i].icon);
+      AppViewModel.imageList.push(results[i].icon);
 
     }
 
@@ -91,7 +80,7 @@ function callback(results, status) {
 
         for (var i = 0; i < AppViewModel.placesList().length; i++) {
           locationStr = AppViewModel.placesList()[i];
-          imageIcon = '';
+          imageIcon = AppViewModel.imageList()[i];
           var url = 'http://en.wikipedia.org/wiki/' + locationStr;
           $wikiElem.append('<li><a href="' + url + '">' + locationStr + '</a></li');
           $wikiElem.append('<img src="' + imageIcon + '" alt="' + locationStr + '">')
