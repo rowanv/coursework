@@ -2,8 +2,11 @@
 
 var data = {
 	'Locations' : {
-		'arrLocations': ['park', 'gym']
+		'arrLocationTypes': ['park', 'gym'],
+        'arrLocationNames': [],
+        'arrLocationImageUrls': [],
 	}
+
 };
 
 /*var locationList = [];
@@ -21,7 +24,9 @@ function LocationStore(name, icon) {
 
 var AppViewModel = {
     location : ko.observable("Barcelona, Spain"),
-    Locations : ko.observableArray(data.Locations.arrLocations)
+    Locations : ko.observableArray(data.Locations.arrLocationTypes),
+    placesList : ko.observableArray(data.Locations.arrLocationNames),
+    imageList : ko.observableArray(data.LocationImageUrls),
 };
 
 
@@ -54,18 +59,46 @@ function initMap() {
     }, callback);
     });
     AppViewModel.Locations.notifySubscribers();
+
+
+
+
 }
+
 
 function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       createMarker(results[i]);
       console.log(results[i]);
-      //locationList.push(results[i].name);
+      AppViewModel.placesList.push(results[i].name);
       //imageList.push(results[i].icon);
 
     }
-  }
+
+      var $wikiElem = $('#wikipedia-links');
+    $wikiElem.text('');
+
+    var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + 'barcelona' + '&format=json&callback=wikiCallback';
+
+
+
+    $.ajax({
+      url: wikiUrl,
+      dataType: 'jsonp',
+      success: function( response ) {
+        var articleList = response[1];
+
+        for (var i = 0; i < AppViewModel.placesList().length; i++) {
+          locationStr = AppViewModel.placesList()[i];
+          imageIcon = '';
+          var url = 'http://en.wikipedia.org/wiki/' + locationStr;
+          $wikiElem.append('<li><a href="' + url + '">' + locationStr + '</a></li');
+          $wikiElem.append('<img src="' + imageIcon + '" alt="' + locationStr + '">')
+        };
+      }
+    });
+    }
 }
 
 function createMarker(place) {
@@ -86,28 +119,10 @@ function createMarker(place) {
 // Activates knockout.js
 ko.applyBindings(AppViewModel);
 initMap();
-/*
-var $wikiElem = $('#wikipedia-links');
-
-$wikiElem.text('');
-
-var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + 'barcelona' + '&format=json&callback=wikiCallback';
 
 
 
-$.ajax({
-  url: wikiUrl,
-  dataType: 'jsonp',
-  success: function( response ) {
-    var articleList = response[1];
 
-    for (var i = 0; i < locationList.length; i++) {
-      locationStr = locationList[i];
-      imageIcon = imageList[i];
-      var url = 'http://en.wikipedia.org/wiki/' + locationStr;
-      $wikiElem.append('<li><a href="' + url + '">' + locationStr + '</a></li');
-      $wikiElem.append('<img src="' + imageIcon + '" alt="' + locationStr + '">')
-    };
-  }
-});*/
+
+
 
