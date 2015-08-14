@@ -6,28 +6,26 @@ var data = {
 	}
 };
 
-var locationList = [];
-var imageList = [];
+/*var locationList = [];
+var imageList = [];*/
 
 
 /* This represents a single tourist location */
+/*
 function LocationStore(name, icon) {
     this.name = name;
     this.icon = icon;
-}
+}*/
 
 
 
-function AppViewModel() {
-    this.location = ko.observable("Barcelona, Spain");
-    this.Locations = ko.observableArray(data.Locations.arrLocations);
-    this.locationList = ko.observableArray([]);
-
-}
+var AppViewModel = {
+    location : ko.observable("Barcelona, Spain"),
+    Locations : ko.observableArray(data.Locations.arrLocations)
+};
 
 
-var map;
-var infowindow;
+var map, infowindow, markers = [];
 
 
 
@@ -42,11 +40,20 @@ function initMap() {
   infowindow = new google.maps.InfoWindow();
 
   var service = new google.maps.places.PlacesService(map);
-  service.nearbySearch({
-    location: barcelona,
-    radius: 800,
-    types: ['gym', 'park', 'store', 'museum', 'zoo']
-  }, callback);
+  AppViewModel.Locations.subscribe(function (newValue) {
+    console.debug('Chaging', newValue);
+    for (var i=0; i<markers.length; i++){
+        markers[i].setMap(null);
+    }
+    markers = []; //reset the markers at the beginnign of each query
+
+    service.nearbySearch({
+        location: barcelona,
+        radius: 800,
+        types: newValue
+    }, callback);
+    });
+    AppViewModel.Locations.notifySubscribers();
 }
 
 function callback(results, status) {
@@ -54,8 +61,8 @@ function callback(results, status) {
     for (var i = 0; i < results.length; i++) {
       createMarker(results[i]);
       console.log(results[i]);
-      locationList.push(results[i].name);
-      imageList.push(results[i].icon);
+      //locationList.push(results[i].name);
+      //imageList.push(results[i].icon);
 
     }
   }
@@ -72,11 +79,14 @@ function createMarker(place) {
     infowindow.setContent(place.name);
     infowindow.open(map, this);
   });
+  markers.push(marker);
 }
 
 
 // Activates knockout.js
-ko.applyBindings(new AppViewModel());
+ko.applyBindings(AppViewModel);
+initMap();
+/*
 var $wikiElem = $('#wikipedia-links');
 
 $wikiElem.text('');
@@ -99,5 +109,5 @@ $.ajax({
       $wikiElem.append('<img src="' + imageIcon + '" alt="' + locationStr + '">')
     };
   }
-});
+});*/
 
