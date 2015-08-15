@@ -15,5 +15,3 @@ class HomePageTest(TestCase):
 		response = home_page(request)
 		expected_html = render_to_string('home.html')
 		self.assertEqual(response.content.decode(), expected_html)
-		#the response.content is raw bytes, not a Python string,
-		#so we have to use the b'' syntax to compare them.
