@@ -19,10 +19,10 @@ class NewVisitorTest(unittest.TestCase):
 
 		self.browser.get('http://localhost:8000')
 
-		#They notice a page title and header mentioning polls.
+		#They notice a page title and header mentioning polling.
 		self.assertIn('Polling', self.browser.title)
 		header_text = self.browser.find_element_by_tag_name('h1').text
-		self.assertIn('Polling', header_text)
+		self.assertIn('polling', header_text)
 
 		#they are invited to enter a question.
 		inputbox = self.browser.find_element_by_id('id_new_item')
@@ -38,7 +38,8 @@ class NewVisitorTest(unittest.TestCase):
 		table = self.browser.find_element_by_id('id_list_table')
 		rows = table.find_elements_by_tag_name('tr')
 		self.assertTrue(
-			any(row.text == 'What\s up?' for row in rows)
+			any(row.text == 'What\s up?' for row in rows),
+			'New polling question did not appear in table'
 		)
 
 
