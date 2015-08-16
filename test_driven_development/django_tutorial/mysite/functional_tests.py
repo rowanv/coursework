@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
 
-browser = webdriver.Firefox()
 
 
 class NewVisitorTest(unittest.TestCase):
@@ -40,7 +39,8 @@ class NewVisitorTest(unittest.TestCase):
 		rows = table.find_elements_by_tag_name('tr')
 		self.assertTrue(
 			any(row.text == 'What\s up?' for row in rows)
-			)
+		)
+
 
 #We check that wse have saved the Question object in teh database
 
