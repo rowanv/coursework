@@ -13,7 +13,12 @@ class NewVisitorTest(unittest.TestCase):
 	def tearDown(self):
 		self.browser.quit()
 
-	def test_can_start_a_list_and_retrieve_it_later(self):
+	def check_for_row_in_list_table(self, row_text):
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn(row_text, [row.text for row in rows])
+
+	def test_can_save_a_polling_question_and_retrieve_it_later(self):
 		#Our user is interested in starting a poll with our new polling app. They
 		#navigate to its home page.
 
@@ -30,17 +35,19 @@ class NewVisitorTest(unittest.TestCase):
 			inputbox.get_attribute('placeholder'),
 			'Enter a polling question')
 
-		#Our user creates a new question: 'What's up?'
-		inputbox.send_keys('What\'s up?')
+		#Our user creates a new question: 'What is up?'
+		inputbox.send_keys('What is up?')
 		inputbox.send_keys(Keys.ENTER)
 
+		#Our user enters another question: 'What is your favourite colour?'
+		#inputbox.send_keys('What is your favourite colour?')
+		#inputbox.send_keys(Keys.ENTER)
+
 		#And now we see that the page lists the question as a poll.
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertTrue(
-			any(row.text == 'What\s up?' for row in rows),
-			'New polling question did not appear in table'
-		)
+		self.check_for_row_in_list_table('What is up?')
+		#self.check_for_row_in_list_table('What is your favourite colour?')
+
+
 
 
 #We check that wse have saved the Question object in teh database
