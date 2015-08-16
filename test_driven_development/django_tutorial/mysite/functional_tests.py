@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
 browser = webdriver.Firefox()
@@ -21,13 +22,25 @@ class NewVisitorTest(unittest.TestCase):
 
 		#They notice a page title and header mentioning polls.
 		self.assertIn('Polling', self.browser.title)
-		self.fail('Finish the test!')
+		header_text = self.browser.find_element_by_tag_name('h1').text
+		self.assertIn('Polling', header_text)
 
-#they are invited to enter a question.
+		#they are invited to enter a question.
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		self.assertEqual(
+			inputbox.get_attribute('placeholder'),
+			'Enter a polling question')
 
-#Our user creates a new question
+		#Our user creates a new question: 'What's up?'
+		inputbox.send_keys('What\'s up?')
+		inputbox.send_keys(Keys.ENTER)
 
-#And now we see that the page lists the question as a poll.
+		#And now we see that the page lists the question as a poll.
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertTrue(
+			any(row.text == 'What\s up?' for row in rows)
+			)
 
 #We check that wse have saved the Question object in teh database
 
