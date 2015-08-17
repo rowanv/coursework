@@ -26,6 +26,8 @@ class NewVisitorTest(unittest.TestCase):
 
 		#They notice a page title and header mentioning polling.
 		self.assertIn('Polling', self.browser.title)
+
+
 		header_text = self.browser.find_element_by_tag_name('h1').text
 		self.assertIn('polling', header_text)
 
@@ -54,7 +56,10 @@ class NewVisitorTest(unittest.TestCase):
 
 #The question must have certain attributes: a publication date, and a question text
 
-#When we change the question's attributes, these are reflected in our app.
+#When we change the question's attributes, these are reflected in our app.'''
+
+if __name__ == '__main__':
+	unittest.main()
 
 
 
