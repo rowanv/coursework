@@ -9,7 +9,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
     def setUpClass(cls):
         for arg in sys.argv:
             if 'liveserver' in arg:
-                cls.server_url = 'http://' + arg.split('+')[1]
+                cls.server_url = 'http://' + arg.split('=')[1]
                 return
         super().setUpClass()
         cls.server_url = cls.live_server_url
@@ -113,7 +113,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # She notices the input box is nicely centered
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertAlmostEqual(
-            inputbox.location['x'] + inputbox.size['width'] / 2, 
+            inputbox.location['x'] + inputbox.size['width'] / 2,
             512,
             delta=5
         )
@@ -123,7 +123,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         inputbox.send_keys('testing\n')
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertAlmostEqual(
-            inputbox.location['x'] + inputbox.size['width'] / 2, 
+            inputbox.location['x'] + inputbox.size['width'] / 2,
             512,
             delta=5
         )
